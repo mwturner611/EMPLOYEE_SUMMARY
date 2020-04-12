@@ -76,18 +76,21 @@ const addToArray = (answers) =>{
     return employee;
 }
 
-// 
+// create main program loop in function
 const mainLoop = (array) => {
     
+    // define employees array as any previously defined EE array
     let employees = array;
 
+    // prompt user with questions
     questionBlock()
     .then(answers => {
-        // array for employees
+        
+        // create an employee and push to the array based on user's answers
         let employee = addToArray(answers);
-
         employees.push(employee);
 
+        // ck if the user wants to restart question process for an additional EE. If NO - Render HTML and create HTML Page
         if (answers.restart === "No"){
             const htmlPage = render(employees);
 
@@ -100,6 +103,7 @@ const mainLoop = (array) => {
                 }
             })
         }
+        // if needing additional EE's, restart the process passing existing array to the beginning 
         else{
             return mainLoop(employees);
             
@@ -110,4 +114,5 @@ const mainLoop = (array) => {
     })
 }
 
+// Call main function
 mainLoop([]);
