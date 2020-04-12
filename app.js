@@ -61,28 +61,28 @@ function questionBlock() {
 };
 
 
-const matt = new Engineer("Matt",12,"matt@email.com","github.com");
-const tricia = new Manager("Tricia",123,"Tricia@email.com",72);
-const employees = [matt,tricia];
+// const matt = new Engineer("Matt",12,"matt@email.com","github.com");
+// const tricia = new Manager("Tricia",123,"Tricia@email.com",72);
+// const employees = [matt,tricia];
 
-const htmlPage = render(employees)
 
-fs.writeFile(outputPath,htmlPage, function(err){
-    if(err){
-        console.log(err)
-    }
-    else{
-        console.log("Generated HTML")
-    }
-})
 
 
 // questionBlock()
 // .then(answers => {
 //     const employees = [];
 //     if (answers.finish === "Yes"){
+//         addToArray(answers);
+//         const htmlPage = render(employees)
 
-//         console.log("it's over")
+//         fs.writeFile(outputPath,htmlPage, function(err){
+//             if(err){
+//                 console.log(err)
+//             }
+//             else{
+//                 console.log("Generated HTML")
+//             }
+//         })    
 //     }
 //     else{
 //         console.log("let's ask more questions")
@@ -91,20 +91,44 @@ fs.writeFile(outputPath,htmlPage, function(err){
 //     console.log(err);
 // })
 
+
+questionBlock()
+.then(answers => {
+    const employees = [];
+
+    let employee = addToArray(answers);
+
+    employees.push(employee);
+
+    const htmlPage = render(employees);
+
+    fs.writeFile(outputPath,htmlPage, function(err){
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log("Generated HTML");
+        }
+    })
+
+})
+.catch((err) => {
+    console.log(err);
+})
+
+
 const addToArray = (answers) =>{
+    let employee = {};
     if (answers.role === "Manager"){
-        let manager = new Manager(answers.name,answers.id,answers.email,answers.office);
-        employees.push(manager);
+        employee = new Manager(answers.name,answers.id,answers.email,answers.office);
     }
     else if (answers.role === "Engineer"){
-        let engineer = new Engineer(answers.name,answers.id,answers.email,answers.github);
-        employees.push(engineer);
+        employee = new Engineer(answers.name,answers.id,answers.email,answers.github);
     }
     else {
-        let intern = new Intern(answers.name,answers.id,answers.email,answers.school);
-        employees.push(intern);
+        employee = new Intern(answers.name,answers.id,answers.email,answers.school);
     }
-    
+    return employee;
 }
 
 // and to create objects for each team member (using the correct classes as blueprints!)
