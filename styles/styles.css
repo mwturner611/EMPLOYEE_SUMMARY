@@ -1,0 +1,24 @@
+.employee-card {
+    margin: 10px;
+}
+.list-group{
+    background-color: 87ceeb;
+}
+.jumbotron{
+    background-color: #45b3e0;
+}
+
+.manager{
+    background-color: #87ceeb;
+}
+
+.engineer{
+    background-color: #c9e9f6;
+}
+
+.intern{
+    background-color: #f3fafd;
+}
+
+
+
