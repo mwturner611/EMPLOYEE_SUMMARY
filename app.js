@@ -60,30 +60,28 @@ function questionBlock() {
     ])
 };
 
-// const matt = {
-//     name: "matt",
-//     id: 12,
-//     email: "matt@email.com",
-//     role: "Engineer",
-//     github: "mwturner611@github.com"
-// };
-// const tricia = {
-//     name: "tricia",
-//     id: 72,
-//     email: "tricia@email.com",
-//     role: "Manager",
-//     office: 234586
-// };
 
-// const employees = [matt,tricia];
+const matt = new Engineer("Matt",12,"matt@email.com","github.com");
+const tricia = new Manager("Tricia",123,"Tricia@email.com",72);
+const employees = [matt,tricia];
 
+const htmlPage = render(employees)
 
-// render(employees);
+fs.writeFile(outputPath,htmlPage, function(err){
+    if(err){
+        console.log(err)
+    }
+    else{
+        console.log("Generated HTML")
+    }
+})
+
 
 // questionBlock()
 // .then(answers => {
 //     const employees = [];
 //     if (answers.finish === "Yes"){
+
 //         console.log("it's over")
 //     }
 //     else{
