@@ -24,7 +24,7 @@
 2. On navigation to correct file install packages npm i
 
 ## Usage 
-1. From command line type node index.js
+1. From command line type node app.js
 2. Follow the prompts as requested entering team member information
 3. When complete - open the "Outputs" directory for your html page
 
