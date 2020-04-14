@@ -11,18 +11,26 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 // define function with inquirer to gather information about the development team members
-function questionBlock() {
+function questionBlock(data) {
     return inquirer.prompt([
         {
             type: "list",
             name: "role",
             message: "What role does the team member serve?",
-            choices: ["Manager","Engineer","Intern"]
+            choices: ["Engineer","Intern"],
+            when: data.length !== 0
         },
         {
             type: "input",
             name: "name",
-            message: "What is his/her NAME?"
+            message: "What is the NAME of the person who Manages the team?",
+            when: data.length === 0
+        },
+        {
+            type: "input",
+            name: "name",
+            message: "What is his/her NAME?",
+            when: data.length !== 0
         },
         {
             type: "input",
@@ -50,7 +58,7 @@ function questionBlock() {
             type: "input",
             name: "office",
             message: "What is his/her Office Number?",
-            when: (answers) => answers.role === "Manager"
+            when: data.length === 0
         },
         {
             type: "list",
@@ -64,17 +72,18 @@ function questionBlock() {
 // function adding one new class of EE
 const addToArray = (answers) =>{
     let employee = {};
-    if (answers.role === "Manager"){
-        employee = new Manager(answers.name,answers.id,answers.email,answers.office);
+    if (answers.role === "Intern"){
+        employee = new Intern(answers.name,answers.id,answers.email,answers.school);
     }
     else if (answers.role === "Engineer"){
         employee = new Engineer(answers.name,answers.id,answers.email,answers.github);
     }
     else {
-        employee = new Intern(answers.name,answers.id,answers.email,answers.school);
+        employee = new Manager(answers.name,answers.id,answers.email,answers.office);
     }
     return employee;
 }
+
 
 // create main program loop in function
 const mainLoop = (array) => {
@@ -83,7 +92,7 @@ const mainLoop = (array) => {
     let employees = array;
 
     // prompt user with questions
-    questionBlock()
+    questionBlock(array)
     .then(answers => {
         
         // create an employee and push to the array based on user's answers
@@ -116,3 +125,5 @@ const mainLoop = (array) => {
 
 // Call main function
 mainLoop([]);
+
+
